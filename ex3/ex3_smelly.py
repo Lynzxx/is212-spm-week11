@@ -45,7 +45,7 @@ class Grocery:
     
     def calculate_tax(self):
         tax_rate = 0.02  # 2% tax
-        tax = self.price * tax_rate
+        tax = round(self.price * tax_rate, 2)
         print(f"Tax for {self.name} (Grocery): {tax}")
         return tax
 

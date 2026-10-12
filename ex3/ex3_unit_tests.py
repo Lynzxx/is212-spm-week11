@@ -20,6 +20,13 @@ class TestElectronics(unittest.TestCase):
         self.assertAlmostEqual(self.electronic_item.calculate_tax(), expected_tax, places=2)
         mock_print.assert_any_call("Tax for Laptop (Electronics): 150.0")
 
+    @patch('builtins.print')
+    def test_calculate_tax_fractional_price(self, mock_print):
+        # Electronics tax is not rounded (15% on 2.50)
+        cable = Electronics("Cable", 2.5)
+        self.assertEqual(cable.calculate_tax(), 0.375)
+        mock_print.assert_any_call("Tax for Cable (Electronics): 0.375")
+
 
 class TestClothing(unittest.TestCase):
     def setUp(self):
@@ -57,7 +64,13 @@ class TestGrocery(unittest.TestCase):
         expected_tax = 10 * 0.02
         self.assertAlmostEqual(self.grocery_item.calculate_tax(), expected_tax, places=2)
         mock_print.assert_any_call("Tax for Milk (Grocery): 0.2")
-        
+
+    @patch('builtins.print')
+    def test_calculate_tax_fractional_price(self, mock_print):
+        # Grocery tax is rounded to the nearest cent (2% on 3.99)
+        bread = Grocery("Bread", 3.99)
+        self.assertEqual(bread.calculate_tax(), 0.08)
+        mock_print.assert_any_call("Tax for Bread (Grocery): 0.08")
 
 
 if __name__ == '__main__':

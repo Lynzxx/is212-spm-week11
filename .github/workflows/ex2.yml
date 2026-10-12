@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - 'ex2/**'
+  pull_request:
+    paths:
+      - 'ex2/**'
 
 jobs:
   test:
@@ -16,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
